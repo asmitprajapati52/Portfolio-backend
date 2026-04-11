@@ -1,0 +1,10 @@
+# Security: NEVER push these
+.env
+node_modules/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
