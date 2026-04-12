@@ -10,7 +10,12 @@ const contactRoutes = require('./routes/contact');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:5173", "https://portfolio-frontend-five-olive.vercel.app"],
+    methods: ["GET", "POST"],
+    credentials: true
+}));
+
 app.use(express.json());
 // Routes Mounting
 // This connects the logic in your routes folder to the /api/contact URL
