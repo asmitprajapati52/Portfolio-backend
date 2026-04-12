@@ -10,22 +10,23 @@ router.post('/contact', async (req, res) => {
 
         const newContact = new Contact({name,email, message});
         await newContact.save(); 
-        
+
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // Use SSL
+    port: 587,
+    secure: false, // Must be false for port 587
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
-    // --- ADD THIS SECTION ---
-    family: 4, // Forces IPv4 to avoid ENETUNREACH
+    family: 4, // Forces IPv4
     tls: {
-        rejectUnauthorized: false 
-    }
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false
+    },
+    logger: true, // This will give us more info in Render logs
+    debug: true
 });
-
         const mailOptions={
             from: process.env.EMAIL_USER,
             to:process.env.RECEIVER_EMAIL,
