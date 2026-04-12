@@ -12,10 +12,9 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 // Routes Mounting
 // This connects the logic in your routes folder to the /api/contact URL
-app.use('/api/contact', contactRoutes);
+app.use('/api', contactRoutes);
 
 // Basic Test Route
 app.get('/', (req, res) => {

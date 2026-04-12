@@ -4,7 +4,7 @@ const Contact = require('../models/Contact');
 const nodemailer= require('nodemailer');
 
 // This handles the POST request from your React Contact.jsx
-router.post('/', async (req, res) => {
+router.post('/contact', async (req, res) => {
     try {
         const {name,email, message}=req.body;
 
@@ -33,10 +33,9 @@ router.post('/', async (req, res) => {
         // ---------------------------
 
     } catch (error) {
-        console.log("CRITICAL ERROR DETAILS:", {
-            message: error.message,
-            code: error.code
-        });     // ... rest of your catch code
+    console.log("CRITICAL ERROR DETAILS:", error);
+    // Send this back so React knows to show the "Error" message
+    res.status(500).json({ success: false, message: "Internal Server Error" });
 }
 });
 
