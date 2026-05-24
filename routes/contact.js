@@ -11,17 +11,16 @@ router.post('/contact', async (req, res) => {
         const newContact = new Contact({ name, email, message });
         await newContact.save(); 
         
-        // 2. Configure Nodemailer Transporter (Brevo/Sendinblue)
-        const transporter = nodemailer.createTransport({
-            host: 'smtp-relay.brevo.com',
-            port: 587,
-            secure: false, 
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
-
+       // 2. Configure Nodemailer Transporter (Updated to secure port 465)
+    const transporter = nodemailer.createTransport({
+    host: 'smtp-relay.brevo.com',
+    port: 465,            // 🌟 CHANGED from 587 to 465
+    secure: true,         // 🌟 CHANGED from false to true (465 requires secure: true)
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
         // 3. Define Email Structure
         const mailOptions = {
             from: process.env.EMAIL_USER,
